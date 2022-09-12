@@ -6,4 +6,9 @@
   background-size: cover;
   background-position: center;
   text-decoration: none;
+  transition: opacity 1s ease;
+}
+
+.header__logo:hover {
+  opacity: 0.5;
 }
