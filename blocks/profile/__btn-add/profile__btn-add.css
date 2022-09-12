@@ -6,4 +6,10 @@
   background-image: url(../../../images/plus.svg);
   background-repeat: no-repeat;
   background-position: center;
+  text-decoration: none;
+  transition: opacity 1s ease;
+}
+
+.profile__btn-add:hover {
+  opacity: 0.6;
 }

@@ -5,4 +5,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+.place__like:hover {
+  opacity: 0.5;
 }

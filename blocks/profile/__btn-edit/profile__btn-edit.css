@@ -6,4 +6,10 @@
   background-repeat: no-repeat;
   background-position: center;
   margin: 37px 0 0 18px;
+  text-decoration: none;
+  transition: opacity 1s ease;
+}
+
+.profile__btn-edit:hover {
+  opacity: 0.6;
 }
