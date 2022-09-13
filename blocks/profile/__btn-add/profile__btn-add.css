@@ -8,6 +8,7 @@
   background-position: center;
   text-decoration: none;
   transition: opacity 1s ease;
+  margin: 35px 0 35px auto;
 }
 
 .profile__btn-add:hover {
