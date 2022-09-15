@@ -10,3 +10,12 @@
   margin: 30px 36px 13px 36px;
   outline: none;
 }
+
+@media screen and (max-width: 768px) {
+  .popup__profession {
+    max-width: 238px;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 30px 22px 0 22px;
+  }
+}

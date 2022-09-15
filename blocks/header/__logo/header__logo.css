@@ -12,3 +12,10 @@
 .header__logo:hover {
   opacity: 0.5;
 }
+
+@media screen and (max-width: 768px) {
+  .header__logo {
+    width: 104px;
+    height: 24px;
+  }
+}

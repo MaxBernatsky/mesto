@@ -7,3 +7,15 @@
   background-color: #fff;
   position: relative;
 }
+
+@media screen and (max-width: 1024px) {
+  .popup__form {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .popup__form {
+    width: 282px;
+  }
+}

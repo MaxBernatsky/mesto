@@ -5,3 +5,9 @@
   color:#545454;
   margin-top: 41px;
 }
+
+@media screen and (max-width: 768px) {
+  .header__line {
+    margin-top: 31px;
+  }
+}
