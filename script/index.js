@@ -4,7 +4,7 @@ let closeBtn = document.querySelector('.popup__close');
 
 let formElement = document.querySelector('.popup__form');
 let inputName = formElement.querySelector('.popup__name');
-let inputProfiession = formElement.querySelector('.popup__profession');
+let inputProfession = formElement.querySelector('.popup__profession');
 let popupBtn = formElement.querySelector('.popup__button');
 
 editBtn.addEventListener('click', function () {
@@ -26,7 +26,7 @@ function formSubmitHandler(evt) {
   let profileSubtitle = document.querySelector('.profile__subtitle');
 
   profileTitle.textContent = inputName.value;
-  profileSubtitle.textContent = inputProfiession.value;
+  profileSubtitle.textContent = inputProfession.value;
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
