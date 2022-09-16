@@ -11,6 +11,7 @@
   text-decoration: none;
   transition: opacity 1s ease;
   margin: 35px 0 35px auto;
+  cursor: pointer;
 }
 
 .profile__btn-add:hover {
