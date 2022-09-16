@@ -1,17 +1,18 @@
 # Проект: Место
 
-### Обзор
+Интерактивная страница где можно редактировать свой профиль,добавить фотографию и поставить лайк.
 
-* Figma
-* Картинки
+### :hammer_and_wrench: Технологии :
+* Flexbox
+* Grid Layout
+* Media queries
+* Файловая структура БЭМ (Nested)
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/vscode/vscode-original.svg" atl="vscode" width="40" height="40">
+  <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" atl="html5" width="40" height="40">
+  <img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-original.svg" atl="css3" width="40" height="40">
+  <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" atl="css3" width="40" height="40">
+  <img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" atl="css3" width="40" height="40">
+</div>
 
-**Figma**
-
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+Ссылка на проект - https://maxbernatsky.github.io/mesto/
