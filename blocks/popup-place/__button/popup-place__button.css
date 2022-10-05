@@ -1,4 +1,4 @@
-.popup__button {
+.popup-place__button {
   width: 358px;
   height: 50px;
   background-color: #000;
@@ -18,12 +18,12 @@
   transition: opacity 1s ease;
 }
 
-.popup__button:hover {
+.popup-place__button:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {
-  .popup__button {
+  .popup-place__button {
     max-width: 238px;
     font-size: 14px;
     line-height: 17px;
