@@ -109,6 +109,12 @@ const createItemNode = (name, link) => {
   placeElement.querySelector('.place__title').textContent = name;
   placeElement.querySelector('.place__img').src = link;
 
+  const deleteBtn = placeElement.querySelector('.place__delete-btn');
+  deleteBtn.addEventListener('click', deletePlace);
+
+  const likeBtn = placeElement.querySelector('.place__like-btn');
+  likeBtn.addEventListener('click', likePlace);
+
   return placeElement;
 };
 
@@ -120,13 +126,15 @@ const addNewPlace = () => {
   container.prepend(newPlace);
 };
 
+const likePlace = (evt) => {
+  const currentLike = evt.target;
+  currentLike.classList.toggle('place__like-btn_active');
+  console.log(currentLike);
+};
+
+const deletePlace = (evt) => {
+  const currentEl = evt.target.closest('.place');
+  currentEl.remove();
+};
+
 render();
-
-const likeBtn = document.querySelectorAll('.place__like-btn');
-const arrLikeBtn = Array.from(likeBtn);
-
-arrLikeBtn.forEach((item) => {
-  item.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('place__like-btn_active');
-  });
-});
