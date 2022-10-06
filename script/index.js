@@ -121,3 +121,12 @@ const addNewPlace = () => {
 };
 
 render();
+
+const likeBtn = document.querySelectorAll('.place__like-btn');
+const arrLikeBtn = Array.from(likeBtn);
+
+arrLikeBtn.forEach((item) => {
+  item.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('place__like-btn_active');
+  });
+});
