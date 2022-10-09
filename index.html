@@ -42,49 +42,6 @@
                   aria-label="Like"></button>
               </div>
             </li>
-            <li class="place">
-              <img src="./images/elbrus.jpg" alt="Гора Эльбрус"
-                class="place__img">
-              <div class="place__name">
-                <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__like-btn" type="button"
-                  aria-label="Like"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/dombai.jpg" alt="Домбай" class="place__img">
-              <div class="place__name">
-                <h2 class="place__title">Домбай</h2>
-                <button class="place__like-btn" type="button"
-                  aria-label="Like"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/elbrus.jpg" alt="Гора Эльбрус"
-                class="place__img">
-              <div class="place__name">
-                <h2 class="place__title">Гора Эльбрус</h2>
-                <button class="place__like-btn" type="button"
-                  aria-label="Like"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/dombai.jpg" alt="Домбай" class="place__img">
-              <div class="place__name">
-                <h2 class="place__title">Домбай</h2>
-                <button class="place__like-btn" type="button"
-                  aria-label="Like"></button>
-              </div>
-            </li>
-            <li class="place">
-              <img src="./images/karachaevsk.jpg" alt="Карачаево-Черкессия"
-                class="place__img">
-              <div class="place__name">
-                <h2 class="place__title">Карачаево-Черкессия</h2>
-                <button class="place__like-btn" type="button"
-                  aria-label="Like"></button>
-              </div>
-            </li>
           </template>
         </ul>
       </section>
@@ -93,47 +50,46 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div id="popup-profile" class="popup">
     <div class="popup__container">
-      <form class="popup__form" name="popupForm">
+      <form class="popup__form" name="popupProfile">
         <button class="popup__close" type="button" aria-label="Close"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input type="text" class="popup__name" value="Жак-Ив Кусто" name="name"
-          placeholder="Введите имя">
-        <input type="text" class="popup__profession"
+        <input type="text" class="popup__input popup__input_item_name"
+          value="Жак-Ив Кусто" name="name" placeholder="Введите имя">
+        <input type="text" class="popup__input popup__input_item_descr"
           value="Исследователь океана" name="profession"
           placeholder="Ваша профессия">
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
-  <div class="popup-place">
-    <div class="popup-place__container">
-      <form class="popup-place__form" name="popupPlaceForm">
-        <button class="popup-place__close" type="button"
-          aria-label="Close"></button>
-        <h3 class="popup-place__title">Новое место</h3>
-        <input type="text" class="popup-place__name" value="Горный Алтай"
-          name="place-name" placeholder="Название">
-        <input type="text" class="popup-place__link"
+  <div id="popup-place" class="popup">
+    <div class="popup__container">
+      <form class="popup__form" name="popupPlaceForm">
+        <button class="popup__close" type="button" aria-label="Close"></button>
+        <h3 class="popup__title">Новое место</h3>
+        <input type="text" class="popup__input popup__input_item_name"
+          value="Горный Алтай" name="place-name" placeholder="Название">
+        <input type="text" class="popup__input popup_input_item_descr"
           value="https://img-cdn.tinkoffjournal.ru/i/ED3EtrzlvVrWydnH5wsvWi4pMQSQpN_u52l5k3HVKLg/w:1200/aHR0cHM6Ly9pbWct/Y2RuLnRpbmtvZmZq/b3VybmFsLnJ1Ly0v/ZmFxLWFsdGF5X19t/YWluX19fX19zaHV0/dGVyc3RvY2tfNzYy/MTczOTk4LnI1aWU4/aHE3ZGFoeS5qcGc"
           name="place-link" placeholder="Ссылка на картинку">
-        <button class="popup-place__button" type="submit">Создать</button>
+        <button class="popup__button" type="submit">Создать</button>
       </form>
     </div>
   </div>
-  <div class="popup-img">
-    <div class="popup-img__container">
-      <figure class="popup-img__figure">
-        <button class="popup-img__close" type="button"
-          aria-label="Close"></button>
+  <div id="popup-img" class="popup">
+    <div class="popup__container">
+      <figure class="popup__figure">
+        <button class="popup__close" type="button" aria-label="Close"></button>
         <img
           src="https://img-cdn.tinkoffjournal.ru/i/ED3EtrzlvVrWydnH5wsvWi4pMQSQpN_u52l5k3HVKLg/w:1200/aHR0cHM6Ly9pbWct/Y2RuLnRpbmtvZmZq/b3VybmFsLnJ1Ly0v/ZmFxLWFsdGF5X19t/YWluX19fX19zaHV0/dGVyc3RvY2tfNzYy/MTczOTk4LnI1aWU4/aHE3ZGFoeS5qcGc"
-          alt="картинка" class="popup-img__full">
-        <figcaption class="popup-img__descr">Горный Алтай</figcaption>
+          alt="картинка" class="popup__img">
+        <figcaption class="popup__descr">Горный Алтай</figcaption>
       </figure>
     </div>
   </div>
+  <script src="./script/cards.js"></script>
   <script src="./script/index.js"></script>
 </body>
 
