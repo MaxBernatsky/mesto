@@ -47,8 +47,8 @@ const handleFormSubmit = (evt) => {
 
 const handlePlaceFormSubmit = (evt) => {
   evt.preventDefault();
-  popupPlaceForm.reset();
   addNewPlace();
+  popupPlaceForm.reset();
   closePopup(popupPlace);
 };
 
