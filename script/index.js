@@ -129,3 +129,24 @@ popupPlaceCloseBtn.addEventListener('click', () => {
 popupImgCloseBtn.addEventListener('click', () => {
   closePopup(popupImg);
 });
+
+//Validation
+const inputElement = popupForm.querySelector('.popup__input');
+
+const showInputError = (input) => {
+  input.classList.add('popup__input_type_error');
+};
+
+const hideInputError = (input) => {
+  input.classList.remove('popup__input_type_error');
+};
+
+const isValid = () => {
+  if (!inputElement.validity.valid) {
+    showInputError(inputElement);
+  } else {
+    hideInputError(inputElement);
+  }
+};
+
+inputElement.addEventListener('input', isValid);
