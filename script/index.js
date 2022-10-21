@@ -4,6 +4,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 // Popup Elements
+const popupList = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('#popup-profile');
 const popupForm = popupProfile.querySelector('.popup__form');
 const closeBtn = popupProfile.querySelector('.popup__close');
@@ -53,17 +54,17 @@ const handlePlaceFormSubmit = (evt) => {
 };
 
 const closeWithClickOnOverlay = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupItem) => {
-    popupItem.addEventListener('click', () => {
-      popupItem.classList.remove('popup_opened');
+    popupItem.addEventListener('click', (e) => {
+      if (e.target.classList.contains('popup__container')) {
+        popupItem.classList.remove('popup_opened');
+      }
     });
   });
 };
 closeWithClickOnOverlay();
 
 const closeWithEsc = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupItem) => {
     document.addEventListener('keydown', (e) => {
       if (e.key == 'Escape') {
