@@ -62,6 +62,18 @@ const closeWithClickOnOverlay = () => {
 };
 closeWithClickOnOverlay();
 
+const closeWithEsc = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popupItem) => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key == 'Escape') {
+        popupItem.classList.remove('popup_opened');
+      }
+    });
+  });
+};
+closeWithEsc();
+
 const render = () => {
   initialCards.forEach((item) => {
     const currentElement = createItemNode(item.name, item.link);
