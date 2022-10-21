@@ -52,6 +52,16 @@ const handlePlaceFormSubmit = (evt) => {
   closePopup(popupPlace);
 };
 
+const closeWithClickOnOverlay = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popupItem) => {
+    popupItem.addEventListener('click', () => {
+      popupItem.classList.remove('popup_opened');
+    });
+  });
+};
+closeWithClickOnOverlay();
+
 const render = () => {
   initialCards.forEach((item) => {
     const currentElement = createItemNode(item.name, item.link);

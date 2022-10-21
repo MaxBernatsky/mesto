@@ -1,5 +1,6 @@
 //Validation
 
+// Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add('popup__input_type_error');
@@ -7,6 +8,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   errorElement.classList.add('popup__input-error_active');
 };
 
+// Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove('popup__input_type_error');
@@ -14,6 +16,7 @@ const hideInputError = (formElement, inputElement) => {
   errorElement.textContent = '';
 };
 
+// Функция, которая проверяет валидность поля
 const isValid = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
