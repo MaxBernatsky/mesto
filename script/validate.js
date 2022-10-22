@@ -71,3 +71,11 @@ const enableValidation = (settings) => {
     setEventListeners(formElement, settings);
   });
 };
+
+const clearErrorMessage = (popupElement) => {
+  const formElement = popupElement.querySelector('.popup__form');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach((inputItem) => {
+    checkInputValidity(formElement, inputItem, settings);
+  });
+};

@@ -143,6 +143,7 @@ editBtn.addEventListener('click', () => {
   if (popupProfile.classList.contains('popup_opened')) {
     inputName.value = profileTitle.textContent;
     inputProfession.value = profileSubtitle.textContent;
+    clearErrorMessage(popupProfile);
   }
 });
 
@@ -152,9 +153,7 @@ closeBtn.addEventListener('click', () => {
 
 popupAddBtn.addEventListener('click', () => {
   openPopup(popupPlace);
-  if (popupPlace.classList.contains('popup_opened')) {
-    toggleButtonState();
-  }
+  setEventListeners(popupPlace, settings);
 });
 
 popupPlaceCloseBtn.addEventListener('click', () => {
