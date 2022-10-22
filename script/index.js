@@ -1,3 +1,12 @@
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active',
+};
+
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
 const profileTitle = document.querySelector('.profile__title');
@@ -143,6 +152,9 @@ closeBtn.addEventListener('click', () => {
 
 popupAddBtn.addEventListener('click', () => {
   openPopup(popupPlace);
+  if (popupPlace.classList.contains('popup_opened')) {
+    toggleButtonState();
+  }
 });
 
 popupPlaceCloseBtn.addEventListener('click', () => {
@@ -159,5 +171,5 @@ enableValidation({
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error',
+  errorClass: 'popup__input-error_active',
 });
