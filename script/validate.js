@@ -72,10 +72,16 @@ const enableValidation = (settings) => {
   });
 };
 
-const clearErrorMessage = (popupElement) => {
-  const formElement = popupElement.querySelector('.popup__form');
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+const clearErrorMessage = (popupSelector, settings) => {
+  const formElement = popupSelector.querySelector(settings.formSelector);
+  const inputList = Array.from(
+    formElement.querySelectorAll(settings.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(
+    settings.submitButtonSelector
+  );
   inputList.forEach((inputItem) => {
     checkInputValidity(formElement, inputItem, settings);
   });
+  toggleButtonState(inputList, buttonElement, settings);
 };
