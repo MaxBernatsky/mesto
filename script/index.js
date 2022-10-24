@@ -42,10 +42,12 @@ const container = document.querySelector('.places');
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
 };
 
 const handleFormSubmit = (evt) => {
@@ -74,16 +76,11 @@ const closeWithClickOnOverlay = () => {
 };
 closeWithClickOnOverlay();
 
-const closeWithEsc = () => {
-  popupList.forEach((popupItem) => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closePopup(popupItem);
-      }
-    });
-  });
+const closePopupEsc = (event) => {
+  if (event.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
 };
-closeWithEsc();
 
 const render = () => {
   initialCards.forEach((item) => {
