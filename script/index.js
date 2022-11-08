@@ -82,53 +82,17 @@ const closePopupEsc = (event) => {
   }
 };
 
-const render = () => {
-  initialCards.forEach((item) => {
-    const currentElement = createItemNode(item.name, item.link);
-    container.append(currentElement);
-  });
-};
+//   placeImg.addEventListener('click', () => {
+//     openPopup(popupImg);
+//     popupImgFull.src = link;
+//     popupImgFull.alt = name;
+//     popupImgDescr.textContent = name;
+//   });
 
-const createItemNode = (name, link) => {
-  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
-  const placeTitle = placeElement.querySelector('.place__title');
-  const placeImg = placeElement.querySelector('.place__img');
-
-  placeTitle.textContent = name;
-  placeImg.src = link;
-  placeImg.alt = name;
-
-  const deleteBtn = placeElement.querySelector('.place__delete-btn');
-  deleteBtn.addEventListener('click', deletePlace);
-
-  const likeBtn = placeElement.querySelector('.place__like-btn');
-  likeBtn.addEventListener('click', likePlace);
-
-  placeImg.addEventListener('click', () => {
-    openPopup(popupImg);
-    popupImgFull.src = link;
-    popupImgFull.alt = name;
-    popupImgDescr.textContent = name;
-  });
-
-  return placeElement;
-};
-const addNewPlace = () => {
-  const newPlace = createItemNode(popupPlaceName.value, popupPlaceLink.value);
-  container.prepend(newPlace);
-};
-
-const likePlace = (evt) => {
-  const currentLike = evt.target;
-  currentLike.classList.toggle('place__like-btn_active');
-};
-
-const deletePlace = (evt) => {
-  const currentEl = evt.target.closest('.place');
-  currentEl.remove();
-};
-
-render();
+// const addNewPlace = () => {
+//   const newPlace = createItemNode(popupPlaceName.value, popupPlaceLink.value);
+//   container.prepend(newPlace);
+// };
 
 popupProfileForm.addEventListener('submit', handleFormSubmit);
 
