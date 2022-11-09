@@ -1,5 +1,7 @@
 import { initialCards, settings } from './settings.js';
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+// import { FormValidator } from './FormValidator.js';
 
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
@@ -30,6 +32,14 @@ const popupImgDescr = popupImg.querySelector('.popup__descr');
 
 //Template
 const container = document.querySelector('.places');
+
+//Validation
+
+const profileFormValidation = new FormValidator(settings, popupProfileForm);
+profileFormValidation.enableValidation();
+
+const placeFormValidation = new FormValidator(settings, popupPlaceForm);
+placeFormValidation.enableValidation();
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
@@ -99,7 +109,6 @@ editBtn.addEventListener('click', () => {
   openPopup(popupProfile);
   inputName.value = profileTitle.textContent;
   inputProfession.value = profileSubtitle.textContent;
-  clearErrorMessage(popupProfile, settings);
 });
 
 closeProfileBtn.addEventListener('click', () => {
@@ -108,7 +117,6 @@ closeProfileBtn.addEventListener('click', () => {
 
 popupAddBtn.addEventListener('click', () => {
   openPopup(popupPlace);
-  clearErrorMessage(popupPlace, settings);
 });
 
 popupPlaceCloseBtn.addEventListener('click', () => {
@@ -124,5 +132,3 @@ initialCards.forEach((item) => {
   const cardElement = card.generateCard();
   container.append(cardElement);
 });
-
-enableValidation(settings);
