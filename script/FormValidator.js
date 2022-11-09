@@ -15,16 +15,22 @@ export class FormValidator {
   }
   // Функция, которая добавляет класс с ошибкой
   _showInputError = (inputElement) => {
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     inputElement.classList.add(this._inputErrorClass);
-    this._errorElement.classList.add(this._errorClass);
-    this._errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._errorClass);
+    errorElement.textContent = inputElement.validationMessage;
   };
 
   // Функция, которая удаляет класс с ошибкой
   _hideInputError = (inputElement) => {
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     inputElement.classList.remove(this._inputErrorClass);
-    this._errorElement.classList.remove(this._errorClass);
-    this._errorElement.textContent = '';
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = '';
   };
 
   // Функция, которая проверяет валидность поля
@@ -71,4 +77,11 @@ export class FormValidator {
     });
     this._setEventListeners();
   };
+
+  clearErrorMessage() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputItem) => {
+      this._checkInputValidity(inputItem);
+    });
+  }
 }

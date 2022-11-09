@@ -51,6 +51,7 @@ const openCardPlace = (name, link) => {
   popupImgFull.alt = name;
   popupImgFull.src = link;
   openPopup(popupImg);
+  placeFormValidation.clearErrorMessage();
 };
 
 const closePopup = (popup) => {
@@ -109,6 +110,7 @@ editBtn.addEventListener('click', () => {
   openPopup(popupProfile);
   inputName.value = profileTitle.textContent;
   inputProfession.value = profileSubtitle.textContent;
+  profileFormValidation.clearErrorMessage();
 });
 
 closeProfileBtn.addEventListener('click', () => {
@@ -117,6 +119,7 @@ closeProfileBtn.addEventListener('click', () => {
 
 popupAddBtn.addEventListener('click', () => {
   openPopup(popupPlace);
+  placeFormValidation.clearErrorMessage();
 });
 
 popupPlaceCloseBtn.addEventListener('click', () => {
