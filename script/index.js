@@ -21,13 +21,15 @@ const popupPlaceForm = popupPlace.querySelector('.popup__form');
 const popupPlaceCloseBtn = popupPlace.querySelector('.popup__close');
 const popupPlaceName = popupPlace.querySelector('.popup__input_item_name');
 const popupPlaceLink = popupPlace.querySelector('.popup__input_item_descr');
-const popupPlaceBtnCreate = popupPlace.querySelector('.popup__button');
 
 //Popup-img Elements
 const popupImg = document.querySelector('#popup-img');
 const popupImgCloseBtn = popupImg.querySelector('.popup__close');
 const popupImgFull = popupImg.querySelector('.popup__img');
 const popupImgDescr = popupImg.querySelector('.popup__descr');
+
+//Template
+const container = document.querySelector('.places');
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
@@ -41,30 +43,9 @@ const openCardPlace = (name, link) => {
   openPopup(popupImg);
 };
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '#place-template', openCardPlace);
-  const cardElement = card.generateCard();
-  document.querySelector('.places').append(cardElement);
-});
-
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
-};
-
-const handleFormSubmit = (evt) => {
-  evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileSubtitle.textContent = inputProfession.value;
-
-  closePopup(popupProfile);
-};
-
-const handlePlaceFormSubmit = (evt) => {
-  evt.preventDefault();
-  addNewPlace();
-  popupPlaceForm.reset();
-  closePopup(popupPlace);
 };
 
 const closeWithClickOnOverlay = () => {
@@ -84,9 +65,30 @@ const closePopupEsc = (event) => {
   }
 };
 
-const addNewPlace = () => {
-  const newPlace = createItemNode(popupPlaceName.value, popupPlaceLink.value);
+const handleFormSubmit = (evt) => {
+  evt.preventDefault();
+  profileTitle.textContent = inputName.value;
+  profileSubtitle.textContent = inputProfession.value;
+
+  closePopup(popupProfile);
+};
+
+const createNewPlace = (data) => {
+  const createPlace = new Card(data, '#place-template', openCardPlace);
+  const newPlaceElement = createPlace.generateCard();
+  return newPlaceElement;
+};
+
+const handlePlaceFormSubmit = (evt) => {
+  evt.preventDefault();
+  const newPlaceValue = {
+    name: popupPlaceName.value,
+    link: popupPlaceLink.value,
+  };
+  const newPlace = createNewPlace(newPlaceValue);
   container.prepend(newPlace);
+  popupPlaceForm.reset();
+  closePopup(popupPlace);
 };
 
 popupProfileForm.addEventListener('submit', handleFormSubmit);
@@ -115,6 +117,12 @@ popupPlaceCloseBtn.addEventListener('click', () => {
 
 popupImgCloseBtn.addEventListener('click', () => {
   closePopup(popupImg);
+});
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '#place-template', openCardPlace);
+  const cardElement = card.generateCard();
+  container.append(cardElement);
 });
 
 enableValidation(settings);
