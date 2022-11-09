@@ -1,10 +1,9 @@
-import { openPopup, popupImg, popupImgDescr, popupImgFull } from './index.js';
-
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openCardPlace) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._openCardPlace = openCardPlace;
   }
 
   _getTemplate() {
@@ -19,37 +18,34 @@ export class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._element.querySelector('.place__title').textContent = this._name;
+    this._element.querySelector('.place__title').alt = this._name;
     this._element.querySelector('.place__img').src = this._link;
 
     return this._element;
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector('.place__delete-btn')
-      .addEventListener('click', this._deletePlace);
+    this._placeDeleteBtn = this._element.querySelector('.place__delete-btn');
+    this._placeDeleteBtn.addEventListener('click', () => {
+      this._deletePlace();
+    });
 
-    this._element
-      .querySelector('.place__like-btn')
-      .addEventListener('click', this._likePlace);
+    this._placeLikeBtn = this._element.querySelector('.place__like-btn');
+    this._placeLikeBtn.addEventListener('click', () => {
+      this._likePlace();
+    });
 
-    this._element
-      .querySelector('.place__img')
-      .addEventListener('click', this._openPlaceCard);
+    this._placeImg = this._element.querySelector('.place__img');
+    this._placeImg.addEventListener('click', () => {
+      this._openCardPlace(this._name, this._link);
+    });
   }
 
-  _deletePlace = () => {
+  _deletePlace() {
     this._element.remove();
-  };
+  }
 
-  _likePlace = (e) => {
-    e.target.classList.toggle('place__like-btn_active');
-  };
-
-  _openPlaceCard = () => {
-    openPopup(popupImg);
-    popupImgFull.src = this._link;
-    popupImgFull.alt = this._name;
-    popupImgDescr.textContent = this._name;
-  };
+  _likePlace() {
+    this._placeLikeBtn.classList.toggle('place__like-btn_active');
+  }
 }

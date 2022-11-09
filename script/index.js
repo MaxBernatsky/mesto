@@ -1,11 +1,6 @@
-import { Card } from './Card.js';
 import { initialCards, settings } from './settings.js';
+import { Card } from './Card.js';
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '#place-template');
-  const cardElement = card.generateCard();
-  document.querySelector('.places').append(cardElement);
-});
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
 const profileTitle = document.querySelector('.profile__title');
@@ -29,15 +24,28 @@ const popupPlaceLink = popupPlace.querySelector('.popup__input_item_descr');
 const popupPlaceBtnCreate = popupPlace.querySelector('.popup__button');
 
 //Popup-img Elements
-export const popupImg = document.querySelector('#popup-img');
+const popupImg = document.querySelector('#popup-img');
 const popupImgCloseBtn = popupImg.querySelector('.popup__close');
-export const popupImgFull = popupImg.querySelector('.popup__img');
-export const popupImgDescr = popupImg.querySelector('.popup__descr');
+const popupImgFull = popupImg.querySelector('.popup__img');
+const popupImgDescr = popupImg.querySelector('.popup__descr');
 
-export const openPopup = (popup) => {
+const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 };
+
+const openCardPlace = (name, link) => {
+  popupImgDescr.textContent = name;
+  popupImgFull.alt = name;
+  popupImgFull.src = link;
+  openPopup(popupImg);
+};
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '#place-template', openCardPlace);
+  const cardElement = card.generateCard();
+  document.querySelector('.places').append(cardElement);
+});
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
@@ -76,10 +84,10 @@ const closePopupEsc = (event) => {
   }
 };
 
-// const addNewPlace = () => {
-//   const newPlace = createItemNode(popupPlaceName.value, popupPlaceLink.value);
-//   container.prepend(newPlace);
-// };
+const addNewPlace = () => {
+  const newPlace = createItemNode(popupPlaceName.value, popupPlaceLink.value);
+  container.prepend(newPlace);
+};
 
 popupProfileForm.addEventListener('submit', handleFormSubmit);
 
