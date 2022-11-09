@@ -1,13 +1,11 @@
-const settings = {
-  popupSelector: '.popup',
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active',
-};
+import { Card } from './Card.js';
+import { initialCards, settings } from './settings.js';
 
+initialCards.forEach((item) => {
+  const card = new Card(item, '#place-template');
+  const cardElement = card.generateCard();
+  document.querySelector('.places').append(cardElement);
+});
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
 const profileTitle = document.querySelector('.profile__title');
@@ -31,16 +29,12 @@ const popupPlaceLink = popupPlace.querySelector('.popup__input_item_descr');
 const popupPlaceBtnCreate = popupPlace.querySelector('.popup__button');
 
 //Popup-img Elements
-const popupImg = document.querySelector('#popup-img');
+export const popupImg = document.querySelector('#popup-img');
 const popupImgCloseBtn = popupImg.querySelector('.popup__close');
-const popupImgFull = popupImg.querySelector('.popup__img');
-const popupImgDescr = popupImg.querySelector('.popup__descr');
+export const popupImgFull = popupImg.querySelector('.popup__img');
+export const popupImgDescr = popupImg.querySelector('.popup__descr');
 
-//Template
-const placeTemplate = document.querySelector('#place-template').content;
-const container = document.querySelector('.places');
-
-const openPopup = (popup) => {
+export const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 };
@@ -81,13 +75,6 @@ const closePopupEsc = (event) => {
     closePopup(document.querySelector('.popup_opened'));
   }
 };
-
-//   placeImg.addEventListener('click', () => {
-//     openPopup(popupImg);
-//     popupImgFull.src = link;
-//     popupImgFull.alt = name;
-//     popupImgDescr.textContent = name;
-//   });
 
 // const addNewPlace = () => {
 //   const newPlace = createItemNode(popupPlaceName.value, popupPlaceLink.value);

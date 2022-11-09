@@ -1,31 +1,6 @@
-initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
+import { openPopup, popupImg, popupImgDescr, popupImgFull } from './index.js';
 
-class Card {
+export class Card {
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -46,8 +21,6 @@ class Card {
     this._element.querySelector('.place__title').textContent = this._name;
     this._element.querySelector('.place__img').src = this._link;
 
-    this._element.alt = this._name;
-
     return this._element;
   }
 
@@ -56,22 +29,27 @@ class Card {
       .querySelector('.place__delete-btn')
       .addEventListener('click', this._deletePlace);
 
-    this._element.addEventListener('click', this._likePlace);
+    this._element
+      .querySelector('.place__like-btn')
+      .addEventListener('click', this._likePlace);
+
+    this._element
+      .querySelector('.place__img')
+      .addEventListener('click', this._openPlaceCard);
   }
 
   _deletePlace = () => {
     this._element.remove();
   };
 
-  _likePlace = () => {
-    this._element
-      .querySelector('.place__like-btn')
-      .classList.toggle('place__like-btn_active');
+  _likePlace = (e) => {
+    e.target.classList.toggle('place__like-btn_active');
+  };
+
+  _openPlaceCard = () => {
+    openPopup(popupImg);
+    popupImgFull.src = this._link;
+    popupImgFull.alt = this._name;
+    popupImgDescr.textContent = this._name;
   };
 }
-
-initialCards.forEach((item) => {
-  const card = new Card(item, '#place-template');
-  const cardElement = card.generateCard();
-  document.querySelector('.places').append(cardElement);
-});
