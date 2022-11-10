@@ -1,7 +1,6 @@
 import { initialCards, settings } from './settings.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
-// import { FormValidator } from './FormValidator.js';
 
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
