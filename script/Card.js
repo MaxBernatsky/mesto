@@ -18,8 +18,8 @@ export class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._element.querySelector('.place__title').textContent = this._name;
-    this._element.querySelector('.place__img').alt = this._name;
-    this._element.querySelector('.place__img').src = this._link;
+    this._placeImg.alt = this._name;
+    this._placeImg.src = this._link;
 
     return this._element;
   }
