@@ -50,7 +50,6 @@ const openCardPlace = (name, link) => {
   popupImgFull.alt = name;
   popupImgFull.src = link;
   openPopup(popupImg);
-  placeFormValidation.clearErrorMessage();
 };
 
 const closePopup = (popup) => {
@@ -75,7 +74,7 @@ const closePopupEsc = (event) => {
   }
 };
 
-const handleFormSubmit = (evt) => {
+const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputProfession.value;
@@ -101,7 +100,7 @@ const handlePlaceFormSubmit = (evt) => {
   closePopup(popupPlace);
 };
 
-popupProfileForm.addEventListener('submit', handleFormSubmit);
+popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
 
 popupPlaceForm.addEventListener('submit', handlePlaceFormSubmit);
 
@@ -109,7 +108,7 @@ editBtn.addEventListener('click', () => {
   openPopup(popupProfile);
   inputName.value = profileTitle.textContent;
   inputProfession.value = profileSubtitle.textContent;
-  profileFormValidation.clearErrorMessage();
+  profileFormValidation.resetValidation();
 });
 
 closeProfileBtn.addEventListener('click', () => {
@@ -118,7 +117,7 @@ closeProfileBtn.addEventListener('click', () => {
 
 popupAddBtn.addEventListener('click', () => {
   openPopup(popupPlace);
-  placeFormValidation.clearErrorMessage();
+  placeFormValidation.resetValidation();
 });
 
 popupPlaceCloseBtn.addEventListener('click', () => {
@@ -130,7 +129,6 @@ popupImgCloseBtn.addEventListener('click', () => {
 });
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#place-template', openCardPlace);
-  const cardElement = card.generateCard();
-  container.append(cardElement);
+  const defaultCardElement = createNewPlace(item);
+  container.append(defaultCardElement);
 });

@@ -78,10 +78,10 @@ export class FormValidator {
     this._setEventListeners();
   };
 
-  clearErrorMessage() {
+  resetValidation() {
     this._toggleButtonState();
     this._inputList.forEach((inputItem) => {
-      this._checkInputValidity(inputItem);
+      this._hideInputError(inputItem);
     });
   }
 }
