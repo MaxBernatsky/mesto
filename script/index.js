@@ -1,6 +1,7 @@
 import { initialCards, settings } from './settings.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
+import { Section } from './Section.js';
 
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
@@ -39,6 +40,18 @@ profileFormValidation.enableValidation();
 
 const placeFormValidation = new FormValidator(settings, popupPlaceForm);
 placeFormValidation.enableValidation();
+
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const createPlace = new Card(data, '#place-template', openCardPlace);
+      const newPlaceElement = createPlace.generateCard();
+      cardList.addItem(newPlaceElement);
+    },
+  },
+  '.container'
+);
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
