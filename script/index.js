@@ -2,6 +2,8 @@ import { initialCards, settings } from './settings.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { Section } from './Section.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
 
 // Profile Elements
 const editBtn = document.querySelector('.profile__btn-edit');
@@ -24,17 +26,6 @@ const popupPlaceCloseBtn = popupPlace.querySelector('.popup__close');
 const popupPlaceName = popupPlace.querySelector('.popup__input_item_name');
 const popupPlaceLink = popupPlace.querySelector('.popup__input_item_descr');
 
-//Popup-img Elements
-const popupImg = document.querySelector('#popup-img');
-const popupImgCloseBtn = popupImg.querySelector('.popup__close');
-const popupImgFull = popupImg.querySelector('.popup__img');
-const popupImgDescr = popupImg.querySelector('.popup__descr');
-
-//Template
-const container = document.querySelector('.places');
-
-//Validation
-
 const profileFormValidation = new FormValidator(settings, popupProfileForm);
 profileFormValidation.enableValidation();
 
@@ -45,77 +36,22 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const createPlace = new Card(data, '#place-template', openCardPlace);
-      const newPlaceElement = createPlace.generateCard();
-      cardList.addItem(newPlaceElement);
+      cardList.addItem(createNewPlace(data));
     },
   },
-  '.container'
+  '.places'
 );
 
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
-};
+const popupFullImg = new PopupWithImage('#popup-img');
+popupFullImg.setEventListeners();
 
-const openCardPlace = (name, link) => {
-  popupImgDescr.textContent = name;
-  popupImgFull.alt = name;
-  popupImgFull.src = link;
-  openPopup(popupImg);
-};
-
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
-};
-
-const closeWithClickOnOverlay = () => {
-  popupList.forEach((popupItem) => {
-    popupItem.addEventListener('mousedown', (e) => {
-      if (e.target.classList.contains('popup__container')) {
-        closePopup(popupItem);
-      }
-    });
-  });
-};
-closeWithClickOnOverlay();
-
-const closePopupEsc = (event) => {
-  if (event.key === 'Escape') {
-    closePopup(document.querySelector('.popup_opened'));
-  }
-};
-
-const handleProfileFormSubmit = (evt) => {
-  evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileSubtitle.textContent = inputProfession.value;
-
-  closePopup(popupProfile);
+const handlePlaceClick = (name, link) => {
+  popupFullImg.open(name, link);
 };
 
 const createNewPlace = (data) => {
-  const createPlace = new Card(data, '#place-template', openCardPlace);
-  const newPlaceElement = createPlace.generateCard();
-  return newPlaceElement;
+  return new Card(data, '#place-template', handlePlaceClick).generateCard();
 };
-
-const handlePlaceFormSubmit = (evt) => {
-  evt.preventDefault();
-  const newPlaceValue = {
-    name: popupPlaceName.value,
-    link: popupPlaceLink.value,
-  };
-  const newPlace = createNewPlace(newPlaceValue);
-  container.prepend(newPlace);
-  popupPlaceForm.reset();
-  closePopup(popupPlace);
-};
-
-popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
-
-popupPlaceForm.addEventListener('submit', handlePlaceFormSubmit);
 
 editBtn.addEventListener('click', () => {
   openPopup(popupProfile);
@@ -124,24 +60,9 @@ editBtn.addEventListener('click', () => {
   profileFormValidation.resetValidation();
 });
 
-closeProfileBtn.addEventListener('click', () => {
-  closePopup(popupProfile);
-});
-
 popupAddBtn.addEventListener('click', () => {
-  openPopup(popupPlace);
+  placePopup.open();
   placeFormValidation.resetValidation();
 });
 
-popupPlaceCloseBtn.addEventListener('click', () => {
-  closePopup(popupPlace);
-});
-
-popupImgCloseBtn.addEventListener('click', () => {
-  closePopup(popupImg);
-});
-
-initialCards.forEach((item) => {
-  const defaultCardElement = createNewPlace(item);
-  container.append(defaultCardElement);
-});
+cardList.renderItems();
