@@ -45,6 +45,18 @@ const cardList = new Section(
 const popupFullImg = new PopupWithImage('#popup-img');
 popupFullImg.setEventListeners();
 
+const handlePlaceFormSubmit = (evt, data) => {
+  evt.preventDefault();
+  createNewPlace(data);
+  const newPlace = createNewPlace(data);
+  cardList.addItem(newPlace);
+  popupPlaceForm.reset();
+  popupAddPlace.close();
+};
+
+const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
+popupAddPlace.setEventListeners();
+
 const handlePlaceClick = (name, link) => {
   popupFullImg.open(name, link);
 };
@@ -61,7 +73,7 @@ editBtn.addEventListener('click', () => {
 });
 
 popupAddBtn.addEventListener('click', () => {
-  placePopup.open();
+  popupAddPlace.open();
   placeFormValidation.resetValidation();
 });
 
