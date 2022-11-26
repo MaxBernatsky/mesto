@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
@@ -17,7 +16,8 @@
     <main class="container">
 
       <section class="profile">
-        <img src="./images/avatar.jpg" alt="Жак-Ив Кусто" class="profile__img">
+        <img src="<%=require('./images/avatar.jpg')%>" alt="Жак-Ив Кусто"
+          class="profile__img">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__btn-edit" type="button"
@@ -94,7 +94,6 @@
       </figure>
     </div>
   </div>
-  <script type="module" src="./script/index.js"></script>
 </body>
 
 </html>
