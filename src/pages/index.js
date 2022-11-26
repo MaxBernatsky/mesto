@@ -1,6 +1,6 @@
 import './index.css';
 
-import { initialCards, settings } from '../components/settings.js';
+import { initialCards, settings } from '../utils/settings.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Section } from '../components/Section.js';
