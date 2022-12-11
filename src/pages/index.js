@@ -1,12 +1,13 @@
 import './index.css';
 
-import { initialCards, settings } from '../utils/settings.js';
+import { settings } from '../utils/settings.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { Api } from '../components/Api.js';
 
 // Profile Elements
 const popupProfile = document.querySelector('#popup-profile');
@@ -26,15 +27,28 @@ profileFormValidation.enableValidation();
 const placeFormValidation = new FormValidator(settings, popupPlaceForm);
 placeFormValidation.enableValidation();
 
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      cardList.addItem(createNewPlace(data));
-    },
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
+  headers: {
+    authorization: '3260d400-ff71-4df9-9d52-ad009a27c921',
+    'Content-Type': 'application/json',
   },
-  '.places'
-);
+});
+
+api.getUserProfile().then((result) => {
+  console.log(result);
+  // userInfo.setUserInfo(result.name, result.link);
+});
+
+// const cardList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (data) => {
+//       cardList.addItem(createNewPlace(data));
+//     },
+//   },
+//   '.places'
+// );
 
 const popupFullImg = new PopupWithImage('#popup-img');
 popupFullImg.setEventListeners();
