@@ -40,15 +40,15 @@ api.getUserProfile().then((result) => {
   // userInfo.setUserInfo(result.name, result.link);
 });
 
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (data) => {
-//       cardList.addItem(createNewPlace(data));
-//     },
-//   },
-//   '.places'
-// );
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      cardList.addItem(createNewPlace(data));
+    },
+  },
+  '.places'
+);
 
 const popupFullImg = new PopupWithImage('#popup-img');
 popupFullImg.setEventListeners();
@@ -100,5 +100,3 @@ popupAddBtn.addEventListener('click', () => {
   popupAddPlace.open();
   placeFormValidation.resetValidation();
 });
-
-cardList.renderItems();
