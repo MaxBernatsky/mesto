@@ -16,7 +16,18 @@ export class Api {
 
   getUserProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      header: this._headers,
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
+  editUserProfile(profileInputsData) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
+      method: 'PATCH',
+      body: JSON.stringify({
+        name: `${profileInputsData.profileName}`,
+        about: `${profileInputsData.profileProfession}`,
+      }),
     }).then(this._checkResponse);
   }
 

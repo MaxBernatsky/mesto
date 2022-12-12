@@ -30,31 +30,21 @@ placeFormValidation.enableValidation();
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
   headers: {
-    authorization: '3260d400-ff71-4df9-9d52-ad009a27c921',
+    authorization: '6c949aed-4b63-42da-a8c1-da85f6e57885',
     'Content-Type': 'application/json',
   },
 });
 
 api.getUserProfile().then((result) => {
-  console.log(result);
-  // userInfo.setUserInfo(result.name, result.link);
+  userInfo.setUserInfo(result.name, result.about);
 });
 
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      cardList.addItem(createNewPlace(data));
-    },
-  },
-  '.places'
-);
-
-const popupFullImg = new PopupWithImage('#popup-img');
-popupFullImg.setEventListeners();
-
-const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
-popupAddPlace.setEventListeners();
+api.getInitialCards().then((result) => {
+  result.forEach((data) => {
+    const newPlace = createNewPlace(data);
+    section.addItem(newPlace);
+  });
+});
 
 function handlePlaceFormSubmit(evt, data) {
   evt.preventDefault();
@@ -69,24 +59,13 @@ const handlePlaceClick = (name, link) => {
   popupFullImg.open(name, link);
 };
 
-const createNewPlace = (data) => {
-  return new Card(data, '#place-template', handlePlaceClick).generateCard();
-};
-
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
-
-const popupUserProfile = new PopupWithForm(
-  '#popup-profile',
-  handleProfileFormSubmit
-);
-
-function handleProfileFormSubmit(evt, data) {
+const handleProfileFormSubmit = (evt, data) => {
   evt.preventDefault();
-  userInfo.setUserInfo(data);
-  popupUserProfile.close();
-}
-
-popupUserProfile.setEventListeners();
+  api.editUserProfile(data).then((result) => {
+    userInfo.setUserInfo(result.name, result.about);
+    popupUserProfile.close();
+  });
+};
 
 editBtn.addEventListener('click', () => {
   popupUserProfile.open();
@@ -100,3 +79,31 @@ popupAddBtn.addEventListener('click', () => {
   popupAddPlace.open();
   placeFormValidation.resetValidation();
 });
+
+const popupFullImg = new PopupWithImage('#popup-img');
+popupFullImg.setEventListeners();
+
+const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
+popupAddPlace.setEventListeners();
+
+const createNewPlace = (data) => {
+  return new Card(data, '#place-template', handlePlaceClick).generateCard();
+};
+
+const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
+
+const popupUserProfile = new PopupWithForm(
+  '#popup-profile',
+  handleProfileFormSubmit
+);
+popupUserProfile.setEventListeners();
+
+const section = new Section(
+  {
+    items: [],
+    renderer: (data) => {
+      cardList.addItem(createNewPlace(data));
+    },
+  },
+  '.places'
+);
