@@ -31,6 +31,17 @@ export class Api {
     }).then(this._checkResponse);
   }
 
+  addCard(cardData) {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+      method: 'POST',
+      body: JSON.stringify({
+        name: `${cardData.name}`,
+        link: `${cardData.link}`,
+      }),
+    }).then(this._checkResponse);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,

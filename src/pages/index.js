@@ -48,11 +48,14 @@ api.getInitialCards().then((result) => {
 
 function handlePlaceFormSubmit(evt, data) {
   evt.preventDefault();
-  createNewPlace(data);
-  const newPlace = createNewPlace(data);
-  cardList.addItem(newPlace);
-  popupPlaceForm.reset();
-  popupAddPlace.close();
+
+  api.addCard(data).then((result) => {
+    createNewPlace(data);
+    const newPlace = createNewPlace(data);
+    section.addItem(newPlace);
+    popupPlaceForm.reset();
+    popupAddPlace.close();
+  });
 }
 
 const handlePlaceClick = (name, link) => {
