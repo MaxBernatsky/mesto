@@ -62,6 +62,15 @@ const handlePlaceClick = (name, link) => {
   popupFullImg.open(name, link);
 };
 
+const handleDeleteClick = (id) => {
+  popupConfirm.open();
+  popupConfirm.changeHandleFormSubmit(() => {
+    api.deleteCard(id).then((result) => {
+      popupConfirm.close();
+    });
+  });
+};
+
 const handleProfileFormSubmit = (evt, data) => {
   evt.preventDefault();
   api.editUserProfile(data).then((result) => {
@@ -89,8 +98,18 @@ popupFullImg.setEventListeners();
 const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
 popupAddPlace.setEventListeners();
 
+const popupConfirm = new PopupWithForm('#popup-confirm', () => {
+  api.deleteCard(id);
+});
+popupConfirm.setEventListeners();
+
 const createNewPlace = (data) => {
-  return new Card(data, '#place-template', handlePlaceClick).generateCard();
+  return new Card(
+    data,
+    '#place-template',
+    handlePlaceClick,
+    handleDeleteClick
+  ).generateCard();
 };
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');

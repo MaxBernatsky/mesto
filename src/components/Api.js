@@ -42,6 +42,13 @@ export class Api {
     }).then(this._checkResponse);
   }
 
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      headers: this._headers,
+      method: 'DELETE',
+    }).then(this._checkResponse);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,

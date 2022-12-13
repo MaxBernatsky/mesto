@@ -1,10 +1,12 @@
 export class Card {
-  constructor(data, templateSelector, openCardPlace) {
+  constructor(data, templateSelector, openCardPlace, handleDeleteClick) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data._id;
     this._templateSelector = templateSelector;
     this._openCardPlace = openCardPlace;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _getTemplate() {
@@ -34,7 +36,7 @@ export class Card {
   _setEventListeners() {
     this._placeDeleteBtn = this._element.querySelector('.place__delete-btn');
     this._placeDeleteBtn.addEventListener('click', () => {
-      this._deletePlace();
+      this._handleDeleteClick(this._id);
     });
 
     this._placeLikeBtn = this._element.querySelector('.place__like-btn');
@@ -48,8 +50,9 @@ export class Card {
     });
   }
 
-  _deletePlace() {
+  deletePlace() {
     this._element.remove();
+    this._element = null;
   }
 
   _likePlace() {
