@@ -4,6 +4,7 @@ export class Card {
     templateSelector,
     openCardPlace,
     handleDeleteClick,
+    handleLikeClick,
     userId
   ) {
     this._name = data.name;
@@ -15,6 +16,7 @@ export class Card {
     this._templateSelector = templateSelector;
     this._openCardPlace = openCardPlace;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getTemplate() {
@@ -26,9 +28,16 @@ export class Card {
     return placeElement;
   }
 
-  _setLikes() {
+  setLikes(newLikes) {
+    this._likes = newLikes;
     const likeCountElement = this._element.querySelector('.place__like-count');
     likeCountElement.textContent = this._likes.length;
+
+    if (this.isLiked()) {
+      this._addFillLikePlace();
+    } else {
+      this._removeFillLikePlace();
+    }
   }
 
   generateCard() {
@@ -37,7 +46,7 @@ export class Card {
     this._element.querySelector('.place__title').textContent = this._name;
     this._placeImg.alt = this._name;
     this._placeImg.src = this._link;
-    this._setLikes();
+    this.setLikes(this._likes);
     this.isOwner();
 
     return this._element;
@@ -49,6 +58,11 @@ export class Card {
     }
   }
 
+  isLiked() {
+    const hasLikedCard = this._likes.find((user) => user._id === this._userId);
+    return hasLikedCard;
+  }
+
   _setEventListeners() {
     this._placeDeleteBtn = this._element.querySelector('.place__delete-btn');
     this._placeDeleteBtn.addEventListener('click', () => {
@@ -57,7 +71,7 @@ export class Card {
 
     this._placeLikeBtn = this._element.querySelector('.place__like-btn');
     this._placeLikeBtn.addEventListener('click', () => {
-      this._likePlace();
+      this._handleLikeClick(this._id);
     });
 
     this._placeImg = this._element.querySelector('.place__img');
@@ -71,7 +85,11 @@ export class Card {
     this._element = null;
   }
 
-  _likePlace() {
-    this._placeLikeBtn.classList.toggle('place__like-btn_active');
+  _addFillLikePlace() {
+    this._placeLikeBtn.classList.add('place__like-btn_active');
+  }
+
+  _removeFillLikePlace() {
+    this._placeLikeBtn.classList.remove('place__like-btn_active');
   }
 }

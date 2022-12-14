@@ -51,6 +51,20 @@ export class Api {
     }).then(this._checkResponse);
   }
 
+  addLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      headers: this._headers,
+      method: 'PUT',
+    }).then(this._checkResponse);
+  }
+
+  deleteLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      headers: this._headers,
+      method: 'DELETE',
+    }).then(this._checkResponse);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,

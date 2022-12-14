@@ -96,6 +96,17 @@ const createNewPlace = (data) => {
         });
       });
     },
+    (id) => {
+      if (card.isLiked()) {
+        api.deleteLike(id).then((result) => {
+          card.setLikes(result.likes);
+        });
+      } else {
+        api.addLike(id).then((result) => {
+          card.setLikes(result.likes);
+        });
+      }
+    },
     userId
   );
   return card.generateCard();
