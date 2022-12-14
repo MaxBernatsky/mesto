@@ -39,7 +39,9 @@ export class Api {
         name: `${cardData.name}`,
         link: `${cardData.link}`,
       }),
-    }).then(this._checkResponse);
+    })
+      .then(this._checkResponse)
+      .catch(console.log);
   }
 
   deleteCard(id) {

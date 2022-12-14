@@ -13,6 +13,8 @@ import { Api } from '../components/Api.js';
 const popupProfile = document.querySelector('#popup-profile');
 const editBtn = document.querySelector('.profile__btn-edit');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
+const popupPlace = document.querySelector('#popup-place');
+const popupPlaceForm = popupPlace.querySelector('.popup__form');
 const profileName = popupProfileForm.querySelector('.popup__input_item_name');
 const profileProfession = popupProfileForm.querySelector(
   '.popup__input_item_descr'
@@ -46,33 +48,7 @@ api.getInitialCards().then((result) => {
   });
 });
 
-function handlePlaceFormSubmit(evt, data) {
-  evt.preventDefault();
-
-  api.addCard(data).then((result) => {
-    createNewPlace(data);
-    const newPlace = createNewPlace(data);
-    section.addItem(newPlace);
-    popupPlaceForm.reset();
-    popupAddPlace.close();
-  });
-}
-
-const handlePlaceClick = (name, link) => {
-  popupFullImg.open(name, link);
-};
-
-const handleDeleteClick = (id) => {
-  popupConfirm.open();
-  popupConfirm.changeHandleFormSubmit(() => {
-    api.deleteCard(id).then((result) => {
-      popupConfirm.close();
-    });
-  });
-};
-
-const handleProfileFormSubmit = (evt, data) => {
-  evt.preventDefault();
+const handleProfileFormSubmit = (data) => {
   api.editUserProfile(data).then((result) => {
     userInfo.setUserInfo(result.name, result.about);
     popupUserProfile.close();
@@ -92,25 +68,47 @@ popupAddBtn.addEventListener('click', () => {
   placeFormValidation.resetValidation();
 });
 
-const popupFullImg = new PopupWithImage('#popup-img');
-popupFullImg.setEventListeners();
-
-const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
-popupAddPlace.setEventListeners();
-
-const popupConfirm = new PopupWithForm('#popup-confirm', () => {
-  api.deleteCard(id);
-});
-popupConfirm.setEventListeners();
+const handlePlaceFormSubmit = (data) => {
+  api.addCard(data).then((result) => {
+    const newCard = createNewPlace(result);
+    section.addItem(newCard);
+    popupAddPlace.close();
+  });
+};
 
 const createNewPlace = (data) => {
-  return new Card(
+  const card = new Card(
     data,
     '#place-template',
-    handlePlaceClick,
-    handleDeleteClick
-  ).generateCard();
+    () => {
+      popupFullImg.open(data.name, data.link);
+    },
+    (id) => {
+      popupConfirm.open();
+      popupConfirm.changeHandleFormSubmit(() => {
+        api.deleteCard(id).then((result) => {
+          card.deletePlace();
+          popupConfirm.close();
+        });
+      });
+    }
+  );
+  return card.generateCard();
 };
+
+const section = new Section(
+  {
+    items: [],
+    renderer: createNewPlace,
+  },
+  '.places'
+);
+
+const popupFullImg = new PopupWithImage('#popup-img');
+
+const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
+
+const popupConfirm = new PopupWithForm('#popup-confirm');
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
 
@@ -119,13 +117,6 @@ const popupUserProfile = new PopupWithForm(
   handleProfileFormSubmit
 );
 popupUserProfile.setEventListeners();
-
-const section = new Section(
-  {
-    items: [],
-    renderer: (data) => {
-      cardList.addItem(createNewPlace(data));
-    },
-  },
-  '.places'
-);
+popupFullImg.setEventListeners();
+popupAddPlace.setEventListeners();
+popupConfirm.setEventListeners();
