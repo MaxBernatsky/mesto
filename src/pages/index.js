@@ -39,7 +39,10 @@ const api = new Api({
 
 api.getUserProfile().then((result) => {
   userInfo.setUserInfo(result.name, result.about);
+  userId = result._id;
 });
+
+let userId;
 
 api.getInitialCards().then((result) => {
   result.forEach((data) => {
@@ -72,6 +75,7 @@ const handlePlaceFormSubmit = (data) => {
   api.addCard(data).then((result) => {
     const newCard = createNewPlace(result);
     section.addItem(newCard);
+    console.log(result);
     popupAddPlace.close();
   });
 };
@@ -91,7 +95,8 @@ const createNewPlace = (data) => {
           popupConfirm.close();
         });
       });
-    }
+    },
+    userId
   );
   return card.generateCard();
 };

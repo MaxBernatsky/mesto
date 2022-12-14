@@ -1,9 +1,17 @@
 export class Card {
-  constructor(data, templateSelector, openCardPlace, handleDeleteClick) {
+  constructor(
+    data,
+    templateSelector,
+    openCardPlace,
+    handleDeleteClick,
+    userId
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._id = data._id;
+    this._userId = userId;
+    this._ownerId = data.owner._id;
     this._templateSelector = templateSelector;
     this._openCardPlace = openCardPlace;
     this._handleDeleteClick = handleDeleteClick;
@@ -30,7 +38,15 @@ export class Card {
     this._placeImg.alt = this._name;
     this._placeImg.src = this._link;
     this._setLikes();
+    this.isOwner();
+
     return this._element;
+  }
+
+  isOwner() {
+    if (this._ownerId !== this._userId) {
+      this._element.querySelector('.place__delete-btn').remove();
+    }
   }
 
   _setEventListeners() {
