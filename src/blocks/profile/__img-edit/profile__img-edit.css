@@ -10,6 +10,8 @@
   background-color: rgba(0, 0, 0, 0);
   background-repeat: no-repeat;
   background-position: center;
+  transition: background-color 0.5s ease-out;
+  
 }
 
 .profile__img-edit:hover{
