@@ -31,6 +31,14 @@ export class Api {
     }).then(this._checkResponse);
   }
 
+  editAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      headers: this._headers,
+      method: 'PATCH',
+      body: JSON.stringify({ avatar: `${avatar.link}` }),
+    }).then(this._checkResponse);
+  }
+
   addCard(cardData) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
@@ -62,16 +70,6 @@ export class Api {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       headers: this._headers,
       method: 'DELETE',
-    }).then(this._checkResponse);
-  }
-
-  editAvatar(avatarData) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      headers: this._headers,
-      method: 'PATCH',
-      body: JSON.stringify({
-        avatar: `${avatarData.avatar}`,
-      }),
     }).then(this._checkResponse);
   }
 

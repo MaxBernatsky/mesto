@@ -63,17 +63,21 @@ api.getInitialCards().then((result) => {
 
 const handleProfileFormSubmit = (data) => {
   api.editUserProfile(data).then((result) => {
-    userInfo.setUserInfo(result.name, result.about, result.avatar);
+    userInfo.setUserInfo(result.name, result.about);
     popupUserProfile.close();
   });
 };
 
 const handleAvatarFormSubmit = (data) => {
-  api.editAvatar(data).then((result) => {
-    console.log(result);
-    // userInfo.setUserAvatar(data.avatar);
-    // popupChangeAvatar.close();
-  });
+  api
+    .editAvatar(data)
+    .then(() => {
+      userInfo.setUserAvatar(data);
+      popupChangeAvatar.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 editAvatarBtn.addEventListener('click', () => {
@@ -98,7 +102,6 @@ const handlePlaceFormSubmit = (data) => {
   api.addCard(data).then((result) => {
     const newCard = createNewPlace(result);
     section.addItem(newCard);
-    console.log(result);
     popupAddPlace.close();
   });
 };
