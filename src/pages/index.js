@@ -12,9 +12,12 @@ import { Api } from '../components/Api.js';
 // Profile Elements
 const popupProfile = document.querySelector('#popup-profile');
 const editBtn = document.querySelector('.profile__btn-edit');
+const editAvatarBtn = document.querySelector('.profile__img-edit');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
 const popupPlace = document.querySelector('#popup-place');
 const popupPlaceForm = popupPlace.querySelector('.popup__form');
+const popupChangeImg = document.querySelector('#popup-change');
+const popupChangeImgForm = popupChangeImg.querySelector('.popup__form');
 const profileName = popupProfileForm.querySelector('.popup__input_item_name');
 const profileProfession = popupProfileForm.querySelector(
   '.popup__input_item_descr'
@@ -29,6 +32,13 @@ profileFormValidation.enableValidation();
 const placeFormValidation = new FormValidator(settings, popupPlaceForm);
 placeFormValidation.enableValidation();
 
+//Change Avatar Validation
+const profileAvatarFormValidation = new FormValidator(
+  settings,
+  popupChangeImgForm
+);
+profileAvatarFormValidation.enableValidation();
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
   headers: {
@@ -38,7 +48,7 @@ const api = new Api({
 });
 
 api.getUserProfile().then((result) => {
-  userInfo.setUserInfo(result.name, result.about);
+  userInfo.setUserInfo(result.name, result.about, result.avatar);
   userId = result._id;
 });
 
@@ -53,10 +63,23 @@ api.getInitialCards().then((result) => {
 
 const handleProfileFormSubmit = (data) => {
   api.editUserProfile(data).then((result) => {
-    userInfo.setUserInfo(result.name, result.about);
+    userInfo.setUserInfo(result.name, result.about, result.avatar);
     popupUserProfile.close();
   });
 };
+
+const handleAvatarFormSubmit = (data) => {
+  api.editAvatar(data).then((result) => {
+    console.log(result);
+    // userInfo.setUserAvatar(data.avatar);
+    // popupChangeAvatar.close();
+  });
+};
+
+editAvatarBtn.addEventListener('click', () => {
+  popupChangeAvatar.open();
+  profileAvatarFormValidation.resetValidation();
+});
 
 editBtn.addEventListener('click', () => {
   popupUserProfile.open();
@@ -126,7 +149,16 @@ const popupAddPlace = new PopupWithForm('#popup-place', handlePlaceFormSubmit);
 
 const popupConfirm = new PopupWithForm('#popup-confirm');
 
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
+const popupChangeAvatar = new PopupWithForm(
+  '#popup-change',
+  handleAvatarFormSubmit
+);
+
+const userInfo = new UserInfo(
+  '.profile__title',
+  '.profile__subtitle',
+  '.profile__img'
+);
 
 const popupUserProfile = new PopupWithForm(
   '#popup-profile',
@@ -136,3 +168,4 @@ popupUserProfile.setEventListeners();
 popupFullImg.setEventListeners();
 popupAddPlace.setEventListeners();
 popupConfirm.setEventListeners();
+popupChangeAvatar.setEventListeners();
