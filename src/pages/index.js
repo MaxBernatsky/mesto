@@ -62,13 +62,23 @@ api.getInitialCards().then((result) => {
 });
 
 const handleProfileFormSubmit = (data) => {
-  api.editUserProfile(data).then((result) => {
-    userInfo.setUserInfo(result.name, result.about);
-    popupUserProfile.close();
-  });
+  popupUserProfile.checkLoading(true, 'Сохранение...');
+  api
+    .editUserProfile(data)
+    .then((result) => {
+      userInfo.setUserInfo(result.name, result.about, result.avatar);
+      popupUserProfile.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      popupUserProfile.checkLoading(false);
+    });
 };
 
 const handleAvatarFormSubmit = (data) => {
+  popupChangeAvatar.checkLoading(true, 'Сохранение...');
   api
     .editAvatar(data)
     .then(() => {
@@ -77,6 +87,9 @@ const handleAvatarFormSubmit = (data) => {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      popupChangeAvatar.checkLoading(false);
     });
 };
 
@@ -99,11 +112,20 @@ popupAddBtn.addEventListener('click', () => {
 });
 
 const handlePlaceFormSubmit = (data) => {
-  api.addCard(data).then((result) => {
-    const newCard = createNewPlace(result);
-    section.addItem(newCard);
-    popupAddPlace.close();
-  });
+  popupAddPlace.checkLoading(true, 'Сохранение...');
+  api
+    .addCard(data)
+    .then((result) => {
+      const newCard = createNewPlace(result);
+      section.addItem(newCard);
+      popupAddPlace.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      popupAddPlace.checkLoading(false);
+    });
 };
 
 const createNewPlace = (data) => {
