@@ -30,8 +30,7 @@ export class Card {
 
   setLikes(newLikes) {
     this._likes = newLikes;
-    const likeCountElement = this._element.querySelector('.place__like-count');
-    likeCountElement.textContent = this._likes.length;
+    this._likeCountElement.textContent = this._likes.length;
 
     if (this.isLiked()) {
       this._addFillLikePlace();
@@ -43,6 +42,7 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
+    this._likeCountElement = this._element.querySelector('.place__like-count');
     this._element.querySelector('.place__title').textContent = this._name;
     this._placeImg.alt = this._name;
     this._placeImg.src = this._link;
