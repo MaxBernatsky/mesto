@@ -46,24 +46,17 @@ const api = new Api({
   },
 });
 
-api
-  .getUserProfile()
-  .then((result) => {
-    userInfo.setUserInfo(result.name, result.about, result.avatar);
-    userId = result._id;
+Promise.all([api.getUserProfile(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData.name, userData.about, userData.avatar);
+    section.renderItems(cardsData);
   })
   .catch((error) => {
     console.log(error);
   });
 
 let userId;
-
-api.getInitialCards().then((result) => {
-  result.forEach((data) => {
-    const newPlace = createNewPlace(data);
-    section.addInitialItems(newPlace);
-  });
-});
 
 const handleProfileFormSubmit = (data) => {
   popupUserProfile.checkLoading(true, 'Сохранение...');
@@ -166,8 +159,10 @@ const createNewPlace = (data) => {
 
 const section = new Section(
   {
-    items: [],
-    renderer: createNewPlace,
+    renderer: (data) => {
+      const newPlace = createNewPlace(data);
+      section.addInitialItems(newPlace);
+    },
   },
   '.places'
 );
@@ -198,13 +193,3 @@ popupFullImg.setEventListeners();
 popupAddPlace.setEventListeners();
 popupConfirm.setEventListeners();
 popupChangeAvatar.setEventListeners();
-
-Promise.all([api.getUserProfile(), api.getInitialCards()])
-  .then(([userData, cardsData]) => {
-    userId = userData._id;
-    userInfo.setUserInfo(userData.name, userData.about, userData.avatar);
-    section.renderItems(cardsData);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
